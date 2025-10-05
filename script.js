@@ -1,3 +1,4 @@
+// Computer choice
 function getComputerChoice(choice) {
   let computerChoice = Math.floor(Math.random() * choice);
 
@@ -11,3 +12,11 @@ function getComputerChoice(choice) {
 }
 
 console.log(getComputerChoice(3));
+
+// Human choice
+function getHumanChoice() {
+  let humanChoice = prompt("Please enter 'rock', 'paper', 'scissors': ");
+  return humanChoice;
+}
+
+console.log(getHumanChoice());

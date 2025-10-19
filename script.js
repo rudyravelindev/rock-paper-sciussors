@@ -1,68 +1,82 @@
-// // Initial scores
-// let humanScore = 0;
-// let computerScore = 0;
+// Initial scores
+let humanScore = 0;
+let computerScore = 0;
 
-// // Computer choice
-// function getComputerChoice(choice) {
-//   let computerChoice = Math.floor(Math.random() * choice);
+// Computer choice
+function getComputerChoice() {
+  let computerChoice = Math.floor(Math.random() * 3);
 
-//   if (computerChoice == 0) {
-//     return 'rock';
-//   } else if (computerChoice == 1) {
-//     return 'paper';
-//   } else {
-//     return 'scissors';
-//   }
-// }
+  if (computerChoice == 0) {
+    return 'rock';
+  } else if (computerChoice == 1) {
+    return 'paper';
+  } else {
+    return 'scissors';
+  }
+}
 
-// // Human choice
-// function getHumanChoice() {
-//   let humanChoice = prompt("Please enter 'rock', 'paper', 'scissors': ");
-//   return humanChoice.toLowerCase();
-// }
+// PlayRound
+function playRound(humanChoice, computerChoice) {
+  if (humanChoice == computerChoice) {
+    return 'It is a Tie!';
+  } else if (
+    (humanChoice === 'rock' && computerChoice === 'scissors') ||
+    (humanChoice === 'scissors' && computerChoice === 'paper') ||
+    (humanChoice === 'paper' && computerChoice === 'rock')
+  ) {
+    ++humanScore;
 
-// // PlayRound
-// function playRound(humanChoice, computerChoice) {
-//   if (humanChoice == computerChoice) {
-//     console.log('It is a Tie!');
-//   } else if (
-//     (humanChoice === 'rock' && computerChoice === 'scissors') ||
-//     (humanChoice === 'scissors' && computerChoice === 'paper') ||
-//     (humanChoice === 'paper' && computerChoice === 'rock')
-//   ) {
-//     console.log(`Human WIN: ${humanChoice} beat ${computerChoice}`);
-//     ++humanScore;
-//   } else {
-//     console.log(`Computer WIN ${computerChoice} beat ${humanChoice}`);
-//     ++computerScore;
-//   }
-// }
+    return `Human WIN: ${humanChoice} beat ${computerChoice}`;
+  } else {
+    ++computerScore;
 
-// // Play Game
+    return `Computer WIN ${computerChoice} beat ${humanChoice}`;
+  }
+}
 
-// function playGame() {
-//   let roundsLeft = 5;
+const resultDiv = document.getElementById('resultDiv');
+const scoreDiv = document.getElementById('score');
+const rockButton = document.getElementById('rock');
+const paperButton = document.getElementById('paper');
+const scissorsButton = document.getElementById('scissors');
+const resetButton = document.getElementById('reset');
 
-//   while (roundsLeft > 0) {
-//     let computerChoice = getComputerChoice(3);
-//     let humanChoice = getHumanChoice();
-//     console.log(
-//       `Human choose ${humanChoice} & Computer choose ${computerChoice}`
-//     );
-//     playRound(humanChoice, computerChoice);
-//     console.log(`Human: ${humanScore} and Computer: ${computerScore}`);
+rockButton.onclick = () => handleClick('rock');
+paperButton.onclick = () => handleClick('paper');
+scissorsButton.onclick = () => handleClick('scissors');
+resetButton.onclick = () => resetGame();
 
-//     roundsLeft--;
-//   }
+function disableButtons() {
+  rockButton.disabled = true;
+  paperButton.disabled = true;
+  scissorsButton.disabled = true;
+}
 
-//   console.log('Game over!');
-//   if (humanScore == computerScore) {
-//     console.log('It is a tie');
-//   } else if (humanScore > computerScore) {
-//     console.log('Human Win the five round game');
-//   } else {
-//     console.log('Computer win the five round game');
-//   }
-// }
+function enableButtons() {
+  rockButton.disabled = false;
+  paperButton.disabled = false;
+  scissorsButton.disabled = false;
+}
 
-// playGame();
+function resetGame() {
+  scoreDiv.textContent = 'Human: 0 - Computer: 0';
+  resultDiv.textContent = 'Make your move!';
+  enableButtons();
+  humanScore = 0;
+  computerScore = 0;
+}
+
+function handleClick(humanChoice) {
+  let computerChoice = getComputerChoice();
+  let message = playRound(humanChoice, computerChoice);
+  scoreDiv.textContent = `Human: ${humanScore} - Computer: ${computerScore}`;
+
+  resultDiv.textContent = message;
+  if (humanScore === 5) {
+    resultDiv.textContent = 'Human wins the game!';
+    disableButtons();
+  } else if (computerScore === 5) {
+    resultDiv.textContent = 'Computer wins the game!';
+    disableButtons();
+  }
+}

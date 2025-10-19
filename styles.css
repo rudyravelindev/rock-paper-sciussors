@@ -3,6 +3,36 @@
 }
 
 .heading {
-  padding: 100px;
+  padding: 10px;
   text-align: center;
+}
+.subtitle {
+  text-align: center;
+  font-size: x-large;
+}
+
+.container {
+  padding: 5%;
+  margin: 3%;
+  box-sizing: border-box;
+  border: 3px solid red;
+}
+.btn {
+  padding: 10px;
+  margin-left: 240px;
+  border: 1px solid rgb(17, 0, 255);
+  border-radius: 12px;
+  text-align: center;
+  background-color: blue;
+  color: white;
+  font-size: xx-large;
+}
+
+.results {
+  padding: 5%;
+  margin: 3%;
+  box-sizing: border-box;
+  border: 3px solid rgb(74, 78, 69);
+  border-radius: 12px;
+  color: black;
 }
